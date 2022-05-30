@@ -19,12 +19,18 @@
             border-top: none;
             overflow: scroll;
         }
+        #container{
+            display: flex;
+            gap: 20px;
+        }
     </style>
 </head>
 <body>
     <input oninput="debounceFunction(main,1000)" type="text" id="query">
 
     <div id="movie"></div>
+
+    <div id="container"></div>
 </body>
 </html>
 
@@ -43,6 +49,8 @@ let url=`http://www.omdbapi.com/?s=${q}&apikey=d806bd70`;
 let res=await fetch(url)
 
 let data= await res.json()
+
+console.log(data.Search)
 
  return data.Search
 
@@ -73,6 +81,11 @@ let p=document.createElement("p")
 
 p.innerText=el.Title
 
+p.addEventListener("click",function(){
+
+    mapcall(el.Poster,el.Title,el.Year,el.imdbID)
+})
+
 movies_appending.append(p)
 
 
@@ -80,6 +93,41 @@ movies_appending.append(p)
 
     })
 
+}
+
+function mapcall(Poster,Title,Type,Year,imdbID){
+    //console.log(oster,Title,Type,Year)
+
+
+    let mamta=document.createElement("div")
+
+    // mamta.setAttribute("class","mantu")
+
+    let img=document.createElement("img")
+
+    img.src=Poster
+
+    let title=document.createElement("h2")
+
+    title.innerText=Title
+
+    let type=document.createElement("h3")
+
+    type.innerText=Type
+
+    let year=document.createElement("p")
+
+    year.innerText=Year
+
+    let imdb=document.createElement("p")
+
+imdb.innerText=imdbID
+
+
+
+    mamta.append(img,title,type,type,imdbID)
+
+    container.append(mamta)
 }
 
    async function main(){
